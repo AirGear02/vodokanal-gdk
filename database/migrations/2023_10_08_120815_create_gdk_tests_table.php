@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contragents', function (Blueprint $table) {
+        Schema::create('gdk_tests', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('type_id')->constrained('contragent_types');
-            $table->string('name', 256);
-            $table->string('edrpou', 8);
-            $table->softDeletes();
+            $table->foreignUuid('contragent_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->date('date');
+            $table->unsignedBigInteger('act_no')->default(1);
+            $table->decimal('sum_coefficient');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contragents');
+        Schema::dropIfExists('gdk_tests');
     }
 };

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contragents', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignId('type_id')->constrained('contragent_types');
+        Schema::create('gdk_measurements', function (Blueprint $table) {
+            $table->id();
             $table->string('name', 256);
-            $table->string('edrpou', 8);
+            $table->unsignedTinyInteger('order_index')->default(0);
+            $table->decimal('standard');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contragents');
+        //
     }
 };

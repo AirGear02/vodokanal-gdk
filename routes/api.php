@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('contragents', ContragentsController::class);
+
+Route::get('/contragents', [ContragentsController::class, 'getAll'])->name('api.contragents.get-all');

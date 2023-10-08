@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ContragentsController;
+use App\Http\Controllers\GdkTestsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,7 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Dashboard');
+    return to_route('dashboard');
 });
 
 Route::middleware([
@@ -27,4 +29,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('contragents', ContragentsController::class);
+    Route::resource('gdk-tests', GdkTestsController::class);
 });

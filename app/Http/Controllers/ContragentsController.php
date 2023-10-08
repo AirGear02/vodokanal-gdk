@@ -5,16 +5,27 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreContragentsRequest;
 use App\Http\Requests\UpdateContragentsRequest;
 use App\Models\Contragents;
+use App\Models\ContragentTypes;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Laravel\Jetstream\Jetstream;
 
 class ContragentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $contragents = Contragents::with('type')->paginate();
+        return Inertia::render('Contragents/Index', [
+           'contragents' => $contragents
+        ]);
+    }
+
+    public function getAll(Request $request)
+    {
+        return response()->json(Contragents::with('type')->paginate(perPage: 5));
     }
 
     /**
@@ -22,7 +33,9 @@ class ContragentsController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Contragents/Create');
+        return Inertia::render('Contragents/Create', [
+            'contragent_types' => ContragentTypes::all(),
+        ]);
     }
 
     /**

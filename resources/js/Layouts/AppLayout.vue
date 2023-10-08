@@ -51,14 +51,25 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    Головна сторінка
                                 </NavLink>
                             </div>
+                          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink :href="route('contragents.index')" :active="route().current('contragents.index')">
+                              Контрагенти
+                            </NavLink>
+                          </div>
                           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <NavLink :href="route('contragents.create')" :active="route().current('contragents.create')">
                               Створити контрагента
                             </NavLink>
                           </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('gdk-tests.index')" :active="route().current('gdk-tests.index')">
+                                    Додати результати ГДК тесту
+                                </NavLink>
+                            </div>
+
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

@@ -11,7 +11,7 @@ class StoreContragentsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,8 @@ class StoreContragentsRequest extends FormRequest
     {
         return [
             'name'    => 'required|string',
-            'type_id' => 'exists:contragent_types.id',
+            'type_id' => 'exists:contragent_types,id',
+            'edrpou'  => 'digits:8',
         ];
     }
 }
