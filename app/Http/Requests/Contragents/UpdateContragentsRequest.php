@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Contragents;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreContragentsRequest extends FormRequest
+class UpdateContragentsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,9 +22,7 @@ class StoreContragentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => 'required|string',
-            'type_id' => 'exists:contragent_types,id',
-            'edrpou'  => 'digits:8',
+            //
         ];
     }
 }

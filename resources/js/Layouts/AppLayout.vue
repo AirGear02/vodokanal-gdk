@@ -205,6 +205,27 @@ const logout = () => {
                         </ResponsiveNavLink>
                     </div>
 
+                    <div class="pt-2 pb-3 space-y-1">
+                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            Головна сторінка
+                        </NavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <NavLink :href="route('contragents.index')" :active="route().current('contragents.index')">
+                            Контрагенти
+                        </NavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <NavLink :href="route('contragents.create')" :active="route().current('contragents.create')">
+                            Створити контрагента
+                        </NavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <NavLink :href="route('gdk-tests.index')" :active="route().current('gdk-tests.index')">
+                            Додати результати ГДК тесту
+                        </NavLink>
+                    </div>
+
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="flex items-center px-4">

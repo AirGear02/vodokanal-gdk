@@ -19,7 +19,7 @@ const form = useForm({
     contragent_id: '',
     act_no: page.props.default_act_no,
     date: new Date().toISOString().slice(0,10),
-    measurements: page.props.measurements.map(measurement => ({id: measurement.id, standard: measurement.standard, value:"", proposed_coefficient: "", real_coefficient: ""}))
+    measurements: page.props.measurements.map(measurement => ({id: measurement.id, standard: measurement.standard, value:null, proposed_coefficient: null, real_coefficient: null}))
 });
 
 
@@ -34,20 +34,20 @@ const sum_real_coefficient = ref(0.000)
 const changeMeasurementValue = (event, index) => {
     const measurement = form.measurements[index]
     if (event.target.value.length === 0) {
-        form.measurements[index].proposed_coefficient = ""
-        form.measurements[index].real_coefficient = ""
+        form.measurements[index].proposed_coefficient = null
+        form.measurements[index].real_coefficient = null
     } else {
         const newValue = Number.parseFloat(event.target.value)
         form.measurements[index].proposed_coefficient =  newValue <= measurement.standard ? 0 : (newValue/measurement.standard - 1).toFixed(3)
         form.measurements[index].real_coefficient = form.measurements[index].proposed_coefficient
     }
-    const filled_measurements = form.measurements.filter(measurement => measurement.value !== '')
+    const filled_measurements = form.measurements.filter(measurement => measurement.value !== null)
     sum_real_coefficient.value = filled_measurements.reduce((sum, current) => sum + Number.parseFloat(current.real_coefficient), 0)
     sum_proposed_coefficient.value = filled_measurements.reduce((sum, current) => sum + Number.parseFloat(current.proposed_coefficient), 0)
 }
 
 const updateRealCoefficient = () => {
-    const filled_measurements = form.measurements.filter(measurement => measurement.value !== '')
+    const filled_measurements = form.measurements.filter(measurement => measurement.value !== null)
     sum_real_coefficient.value = filled_measurements.reduce((sum, current) => sum + Number.parseFloat(current.real_coefficient), 0)
 }
 

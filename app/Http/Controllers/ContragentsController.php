@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreContragentsRequest;
-use App\Http\Requests\UpdateContragentsRequest;
+use App\Http\Requests\Contragents\StoreContragentsRequest;
+use App\Http\Requests\Contragents\UpdateContragentsRequest;
 use App\Models\Contragents;
 use App\Models\ContragentTypes;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Laravel\Jetstream\Jetstream;
 
 class ContragentsController extends Controller
 {
