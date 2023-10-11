@@ -20,7 +20,6 @@
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
-        @vite('../../node_modules/flowbite/dist/flowbite.js')
         @inertiaHead
     </head>
     <body class="font-sans antialiased">

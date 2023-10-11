@@ -8,7 +8,6 @@ export default defineConfig({
             input: [
                 'resources/js/app.js',
                 'resources/css/app.css',
-                '../../node_modules/flowbite/dist/flowbite.js.',
             ],
             refresh: true,
         }),
