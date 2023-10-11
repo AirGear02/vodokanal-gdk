@@ -28,7 +28,6 @@ const logout = () => {
 </script>
 
 
-
 <template>
     <div>
         <Head :title="title" />
@@ -57,11 +56,6 @@ const logout = () => {
                           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <NavLink :href="route('contragents.index')" :active="route().current('contragents.index')">
                               Контрагенти
-                            </NavLink>
-                          </div>
-                          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink :href="route('contragents.create')" :active="route().current('contragents.create')">
-                              Створити контрагента
                             </NavLink>
                           </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -200,12 +194,6 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div class="pt-2 pb-3 space-y-1">
                         <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Головна сторінка
                         </NavLink>
@@ -213,11 +201,6 @@ const logout = () => {
                     <div class="pt-2 pb-3 space-y-1">
                         <NavLink :href="route('contragents.index')" :active="route().current('contragents.index')">
                             Контрагенти
-                        </NavLink>
-                    </div>
-                    <div class="pt-2 pb-3 space-y-1">
-                        <NavLink :href="route('contragents.create')" :active="route().current('contragents.create')">
-                            Створити контрагента
                         </NavLink>
                     </div>
                     <div class="pt-2 pb-3 space-y-1">

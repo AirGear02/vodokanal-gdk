@@ -15,6 +15,11 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .directive('flowbite', {
+                mounted(el) {
+                    setTimeout(() => initFlowbite(), 1500)
+                }
+            })
             .mount(el);
     },
     progress: {

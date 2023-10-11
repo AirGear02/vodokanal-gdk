@@ -8,6 +8,7 @@ use App\Models\Contragents;
 use App\Models\ContragentTypes;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use MongoDB\Driver\Query;
 
 class ContragentsController extends Controller
 {
@@ -16,15 +17,28 @@ class ContragentsController extends Controller
      */
     public function index(Request $request)
     {
-        $contragents = Contragents::with('type')->paginate();
         return Inertia::render('Contragents/Index', [
-           'contragents' => $contragents
+            'contragent_types' => ContragentTypes::all()
         ]);
     }
 
     public function getAll(Request $request)
     {
-        return response()->json(Contragents::with('type')->paginate(perPage: 5));
+
+        return response()->json(Contragents::with('type')
+            ->when($request->filled('order_field'), fn($query) => $query
+                ->orderBy($request->order_field, $request->order_direction ?? 'asc')
+            )
+            ->when($request->filled('search'), fn($query) => $query->where(fn($query) => $query
+                    ->where('name', 'LIKE', "%$request->search%")
+                    ->orWhere('edrpou', 'LIKE', "%$request->search%")
+                )
+            )
+            ->when($request->filled('type_id'), fn($query) => $query->where(fn($query) => $query
+                ->where('type_id', '=', $request->type_id)
+                )
+            )
+            ->paginate(perPage: 3));
     }
 
     /**
