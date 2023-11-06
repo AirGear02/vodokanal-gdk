@@ -15,7 +15,8 @@ defineProps({
 const form = useForm({
   name: '',
   type_id: '1',
-  edrpou: ''
+  edrpou: '',
+  contract_no: '',
 });
 
 const submit = () => {
@@ -55,6 +56,16 @@ const submit = () => {
             />
               <InputError class="mt-2" :message="form.errors.edrpou"/>
           </div>
+            <div class="mt-4">
+                <InputLabel for="type_id" value="Номер договору"/>
+                <TextInput
+                    id="name"
+                    v-model="form.contract_no"
+                    type="number"
+                    class="mt-1 block w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+                <InputError class="mt-2" :message="form.errors.contract_no"/>
+            </div>
           <div class="mt-4">
             <InputLabel for="type_id" value="Вид діяльності"/>
             <Select :data="contragent_types" name="type_id" v-model="form.type_id" style="color: black !important;"></Select>

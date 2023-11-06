@@ -19,10 +19,13 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "date-fns": "^2.30.0",
         "flowbite": "^1.8.1",
         "laravel-vue-pagination": "^4.1.1",
         "lodash.debounce": "^4.0.8",
         "tw-elements": "^1.0.0",
+        "v-calendar": "^3.1.2",
         "vue-search-select": "^3.2.0"
     }
 }

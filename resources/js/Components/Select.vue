@@ -22,7 +22,8 @@ defineEmits(['update:modelValue']);
     <select
         :name="name"
         @change="$emit('update:modelValue', $event.target.value)"
-        class="w-full rounded border-slate-300"
+        class="w-fit rounded border-slate-300"
+        :value="modelValue"
     >
         <option :key="item.id" :value="item.id" v-for="item in data">{{ item.name }}</option>
     </select>

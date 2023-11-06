@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gdk_test_measurements_pivot', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->foreignUuid('test_id')->constrained('gdk_tests')->cascadeOnDelete();
             $table->foreignId('measurement_id')->constrained('gdk_measurements');
             $table->decimal('proposed_coefficient')->nullable();

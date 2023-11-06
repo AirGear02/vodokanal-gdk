@@ -17,7 +17,12 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->date('date');
             $table->unsignedBigInteger('act_no')->default(1);
-            $table->decimal('sum_coefficient');
+            $table->decimal('coefficient');
+            $table->decimal('applied_coefficient')->nullable();
+            $table->decimal('water_usage')->nullable();
+            $table->decimal('penalty_amount')->nullable();
+            $table->decimal('tariff')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

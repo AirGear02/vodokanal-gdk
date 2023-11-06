@@ -10,25 +10,23 @@ import NavLink from "@/Components/NavLink.vue";
 
 const props = defineProps({
     contragent: Object,
-    default_act_no: Number,
-    measurements: Array,
-    tariff: Number,
+    gdk_test: Object,
 });
 
 
 const form = useForm({
-    act_no: props.default_act_no,
-    date: new Date().toISOString().slice(0, 10),
-    applied_coefficient: 0.000,
-    water_usage: 0,
-    tariff: props.tariff,
-    penalty_amount: 0,
-    measurements: props.measurements.map(measurement => ({
+    act_no: props.gdk_test.act_no,
+    date: props.gdk_test.date,
+    applied_coefficient: props.gdk_test.applied_coefficient,
+    water_usage: props.gdk_test.water_usage,
+    tariff: props.gdk_test.tariff,
+    penalty_amount: props.gdk_test.penalty_amount,
+    measurements: props.gdk_test.measurements.map(measurement => ({
         id: measurement.id,
         standard: measurement.standard,
-        value: null,
-        proposed_coefficient: null,
-        real_coefficient: null
+        value: measurement.pivot.value,
+        proposed_coefficient: measurement.pivot.proposed_coefficient,
+        real_coefficient: measurement.pivot.real_coefficient
     }))
 });
 
@@ -37,8 +35,10 @@ const submit = () => {
     form.post(route('contragents.gdk-tests.store', props.contragent.id));
 };
 
-const sum_proposed_coefficient = ref(0.000)
-const sum_real_coefficient = ref(0.000)
+const filled_measurements = form.measurements.filter(measurement => measurement.value !== null)
+
+const sum_proposed_coefficient = ref(filled_measurements.reduce((sum, current) => sum + Number.parseFloat(current.proposed_coefficient || 0), 0))
+const sum_real_coefficient = ref(filled_measurements.reduce((sum, current) => sum + Number.parseFloat(current.real_coefficient || 0), 0))
 
 
 const changeMeasurementValue = (event, index) => {
@@ -56,6 +56,7 @@ const changeMeasurementValue = (event, index) => {
     sum_proposed_coefficient.value = filled_measurements.reduce((sum, current) => sum + Number.parseFloat(current.proposed_coefficient || 0), 0)
     form.applied_coefficient = sum_real_coefficient.value;
 }
+
 
 const updateRealCoefficient = () => {
     const filled_measurements = form.measurements.filter(measurement => measurement.value !== null)
@@ -77,7 +78,7 @@ const updatePenaltyAmount = () => {
 </style>
 
 <template>
-    <app-layout title="Додати ГДК тест">
+    <app-layout title="Перегляд ГДК аналізу">
         <template #header>
           <div class="flex">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -111,6 +112,7 @@ const updatePenaltyAmount = () => {
                             name="act_no"
                             type="number"
                             min="1"
+                            disabled
                             required
                         />
                     </div>
@@ -147,7 +149,7 @@ const updatePenaltyAmount = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(measurement, index) of measurements" class="">
+                        <tr v-for="(measurement, index) of gdk_test.measurements" class="">
                             <td>{{ measurement.order_index }}.</td>
                             <td>{{ measurement.name }}</td>
                             <td>{{ measurement.standard }}</td>
@@ -238,7 +240,7 @@ const updatePenaltyAmount = () => {
                     <div class="w-24 mr-10">
                         <InputLabel for="act_no" value="Сума штрафу"/>
                         <div class="flex h-12 align-middle text-xl">
-                                <span class="font-bold block m-auto">{{form.penalty_amount?.toLocaleString('uk-UA', {
+                                <span class="font-bold block m-auto">{{Number.parseFloat(form.penalty_amount).toLocaleString('uk-UA', {
                                     style: 'currency',
                                     currency: 'UAH',
                                 })}}</span>
@@ -246,9 +248,9 @@ const updatePenaltyAmount = () => {
 
                     </div>
                 </div>
-                <PrimaryButton class="mt-5 mb-5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Додати
-                </PrimaryButton>
+<!--                <PrimaryButton class="mt-5 mb-5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">-->
+<!--                    Оновити-->
+<!--                </PrimaryButton>-->
             </div>
         </form>
     </app-layout>

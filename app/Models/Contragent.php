@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contragents extends Model
+class Contragent extends Model
 {
     use HasFactory, HasUuids;
 
     public $fillable = [
         'name',
         'type_id',
-        'edrpou'
+        'edrpou',
+        'contract_no'
     ];
 
     public function type()
@@ -34,5 +35,15 @@ class Contragents extends Model
     public function gdkTests()
     {
         return $this->hasMany(GdkTest::class);
+    }
+
+    public function info()
+    {
+        return $this->hasMany(ContragentsInfo::class);
+    }
+
+    public function lastInfo()
+    {
+        return $this->hasOne(ContragentsInfo::class)->orderByDesc('date');
     }
 }

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contragents', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignId('type_id')->constrained('contragent_types');
-            $table->string('name', 256);
-            $table->string('edrpou', 8);
-            $table->string('contract_no', 16)->unique();
+        Schema::create('calendar_notes', function (Blueprint $table) {
+            $table->id();
+            $table->text('body');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->date('date');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contragents');
+        Schema::dropIfExists('calendar_notes');
     }
 };

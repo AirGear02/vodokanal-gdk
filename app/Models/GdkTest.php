@@ -12,10 +12,21 @@ class GdkTest extends Model
 
     public $table = 'gdk_tests';
 
-    public function gdkMeasurements()
+    public $fillable = [
+        'user_id',
+        'date',
+        'act_no',
+        'coefficient',
+        'applied_coefficient',
+        'water_usage',
+        'penalty_amount',
+        'tariff',
+    ];
+
+    public function measurements()
     {
-        return $this->belongsToMany(GdkMeasurements::class, 'gdk_test_measurements')
-            ->withPivot(['proposed_coefficient', 'real_coefficient'])
+        return $this->belongsToMany(GdkMeasurements::class, 'gdk_test_measurements_pivot', 'test_id', 'measurement_id')
+            ->withPivot(['proposed_coefficient', 'real_coefficient', 'value'])
             ->using(new class extends Pivot {
                 use HasUuids;
             });
@@ -24,5 +35,10 @@ class GdkTest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function contragent()
+    {
+        return $this->belongsTo(Contragent::class);
     }
 }

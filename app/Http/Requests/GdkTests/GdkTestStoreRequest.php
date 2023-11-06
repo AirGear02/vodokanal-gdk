@@ -23,14 +23,17 @@ class GdkTestStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'contragent_id'                       => 'required|exists:contragents,id',
             'act_no'                              => ['required', Rule::unique('gdk_tests', 'act_no')->whereNull('deleted_at')],
+            'penalty_amount'                      => 'required|nullable|min:0',
+            'tariff'                              => 'required|nullable|min:0',
+            'applied_coefficient'                 => 'required|min:0',
+            'water_usage'                         => 'required|min:0',
             'date'                                => 'required|date',
             'measurements'                        => 'required|array',
-            'measurements.*.id'                   => 'exists:gdk_measurements:id',
-            'measurements.*.value'                => 'required|numeric|nullable',
-            'measurements.*.proposed_coefficient' => 'required|numeric|nullable',
-            'measurements.*.real_coefficient'     => 'required|numeric|nullable',
+            'measurements.*.id'                   => 'required|exists:gdk_measurements,id',
+            'measurements.*.value'                => 'nullable|numeric',
+            'measurements.*.proposed_coefficient' => 'nullable|numeric|nullable',
+            'measurements.*.real_coefficient'     => 'nullable|numeric|nullable',
         ];
     }
 }

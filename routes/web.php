@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ContragentInfoController;
 use App\Http\Controllers\ContragentsController;
 use App\Http\Controllers\GdkTestsController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,6 +18,7 @@ use Inertia\Inertia;
 |
 */
 
+ray()->showQueries();
 Route::get('/', function () {
     return to_route('dashboard');
 });
@@ -31,5 +33,15 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('contragents', ContragentsController::class);
-    Route::resource('gdk-tests', GdkTestsController::class);
+    Route::resource('contragents.gdk-tests', GdkTestsController::class);
+
+    Route::apiResource('contragents.info', ContragentInfoController::class)->only('store', 'update');
+
+    Route::group(['prefix' => 'calendar'], function () {
+       Route::get('/', [CalendarController::class, 'index'])->name('calendar.index');
+       Route::group(['prefix' => 'notes'], function () {
+          Route::post('/', [CalendarController::class, 'storeNote'])->name('calendar.store-note');
+          Route::get('/', [CalendarController::class, 'getNotes'])->name('calendar.get-notes');
+       });
+    });
 });
